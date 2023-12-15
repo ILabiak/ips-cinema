@@ -8,6 +8,7 @@ import { OrdersModule } from './orders/orders.module';
 import { Order } from './orders/entities/order.entity';
 import { SellersModule } from './sellers/sellers.module';
 import { FilmsModule } from './films/films.module';
+import { TicketsModule } from './tickets/tickets.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { FilmsModule } from './films/films.module';
     OrdersModule,
     SellersModule,
     FilmsModule,
+    TicketsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

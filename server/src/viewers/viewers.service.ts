@@ -29,7 +29,7 @@ export class ViewersService {
     return this.viewerModel.findByIdAndUpdate(id, updateViewerDto);
   }
 
-  async remove(id: string) {
+  remove(id: string) {
     return this.viewerModel.findByIdAndDelete(id);
   }
 }

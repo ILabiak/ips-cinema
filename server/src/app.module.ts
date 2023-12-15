@@ -6,6 +6,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ViewersModule } from './viewers/viewers.module';
 import { OrdersModule } from './orders/orders.module';
 import { Order } from './orders/entities/order.entity';
+import { SellersModule } from './sellers/sellers.module';
+import { FilmsModule } from './films/films.module';
 
 @Module({
   imports: [
@@ -23,6 +25,8 @@ import { Order } from './orders/entities/order.entity';
     MongooseModule.forRoot('mongodb://localhost:27017/', { dbName: 'cinema' }),
     ViewersModule,
     OrdersModule,
+    SellersModule,
+    FilmsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

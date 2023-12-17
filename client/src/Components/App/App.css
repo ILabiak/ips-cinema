@@ -1,0 +1,36 @@
+/* List styles */
+ul, ol {
+  list-style: none;
+}
+
+.list {
+  margin: 20px auto;
+  max-width: 500px;
+  padding: 20px;
+  background-color: #f2f2f2;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+  
+.list-empty {
+  font-style: italic;
+  color: gray;
+}
+  
+/* Item styles */
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.item-text {
+  flex: 1;
+  margin-right: 10px;
+  font-size: 18px;
+}

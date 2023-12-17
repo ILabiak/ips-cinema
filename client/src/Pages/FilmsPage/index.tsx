@@ -29,10 +29,17 @@ export default function FilmsPage() {
     setFilms(prevFilms => [...prevFilms, film]);
   };
 
+  const deleteFilm = (id: string): void => {
+    fetch(`${url}/${id}`, {
+      method: 'DELETE',
+    });
+    setFilms(films.filter(film => film._id !== id));
+  }
+
   return (
     <>
       <AddFilmForm addFilm={addFilm} />
-      <FilmList films={films} />
+      <FilmList films={films} deleteFilm={deleteFilm}/>
     </>
   );
 };

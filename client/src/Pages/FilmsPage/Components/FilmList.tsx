@@ -1,5 +1,5 @@
 import FilmItem from "./FilmItem";
-import Film from "../film.interface";
+import Film from "../../../interfaces/film.interface";
 
 interface FilmListProps {
   films: Film[],

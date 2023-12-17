@@ -1,4 +1,4 @@
-import Film from "../film.interface";
+import Film from "../../../interfaces/film.interface";
 
 interface FilmItemProps {
   film: Film,

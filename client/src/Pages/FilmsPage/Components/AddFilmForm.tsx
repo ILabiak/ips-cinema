@@ -1,6 +1,6 @@
 import { useState, FormEvent, ChangeEvent } from "react";
 
-import Film from "../film.interface";
+import Film from "../../../interfaces/film.interface";
 
 interface AddFilmFormProps {
   addFilm(film: Film): void

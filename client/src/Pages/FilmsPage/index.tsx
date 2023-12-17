@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Film from "./film.interface";
+import Film from "../../interfaces/film.interface";
 import { serverURL } from "../../constants";
 import FilmList from "./Components/FilmList";
 import AddFilmForm from "./Components/AddFilmForm";

@@ -1,10 +1,10 @@
-import FilmsPage from '../../Pages/FilmsPage';
+import Router from '../../Router';
 import './App.css';
 
 function App() {
   return (
     <div>
-      <FilmsPage />
+      <Router />
     </div>
   );
 }

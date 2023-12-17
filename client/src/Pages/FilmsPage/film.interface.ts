@@ -1,5 +1,5 @@
 export default interface Film {
-  id: string,
+  id?: string,
   title: string;
   genre: string;
   director: string;

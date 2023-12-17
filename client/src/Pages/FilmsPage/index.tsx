@@ -10,9 +10,9 @@ export default function FilmsPage() {
 
   useEffect(() => {
     const handleFetchFilms = async () => {
-      const response = await fetch(url);
-      const data = await response.json();
-      setFilms(data);
+      const response: Response = await fetch(url);
+      const data: Film[] = await response.json();
+      setFilms(data.reverse());
     }
 
     handleFetchFilms();
@@ -26,7 +26,7 @@ export default function FilmsPage() {
       },
       body: JSON.stringify(film),
     });
-    setFilms(prevFilms => [...prevFilms, film]);
+    setFilms(prevFilms => [film, ...prevFilms]);
   };
 
   const deleteFilm = (id: string): void => {

@@ -19,6 +19,9 @@ export class Film {
 
   @Prop()
   description: string;
+
+  @Prop()
+  pictureId: string;
 }
 
 export const FilmSchema = SchemaFactory.createForClass(Film);

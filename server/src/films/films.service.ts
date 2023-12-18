@@ -35,7 +35,9 @@ export class FilmsService {
     return this.filmModel.findByIdAndUpdate(id, updateFilmDto);
   }
 
-  remove(id: string) {
+  async remove(id: string) {
+    const film = await this.filmModel.findById(id);
+    this.filesService.deleteFile(film.pictureId);
     return this.filmModel.findByIdAndDelete(id);
   }
 }

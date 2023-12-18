@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { writeFile } from 'fs/promises';
+import { unlink, writeFile } from 'fs/promises';
 import * as path from 'path';
 import * as uuid from 'uuid';
 
@@ -26,5 +26,10 @@ export class FilesService {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  async deleteFile(fileName: string) {
+    const filePath = path.resolve('static', fileName);
+    unlink(filePath);
   }
 }

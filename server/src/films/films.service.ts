@@ -17,7 +17,7 @@ export class FilmsService {
   async create(createFilmDto: CreateFilmDto, file: Express.Multer.File) {
     let pictureId: string;
     if (file) {
-      pictureId = await this.filesService.saveImage(file);
+      pictureId = await this.filesService.saveFileToStorage(file);
     }
     const film = new this.filmModel({ ...createFilmDto, pictureId });
     return film.save();
@@ -31,13 +31,34 @@ export class FilmsService {
     return this.filmModel.findById(id);
   }
 
-  update(id: string, updateFilmDto: UpdateFilmDto) {
-    return this.filmModel.findByIdAndUpdate(id, updateFilmDto);
+  async update(
+    id: string,
+    updateFilmDto: UpdateFilmDto,
+    file: Express.Multer.File,
+  ) {
+    // eslint-disable-next-line prefer-const
+    let { pictureId, ...updateFilmData } = updateFilmDto;
+
+    if (!pictureId) {
+      const film = await this.filmModel.findById(id);
+      film.id;
+      pictureId = film.pictureId;
+    }
+
+    if (file) {
+      this.filesService.deleteFileFromStorage(pictureId);
+      pictureId = await this.filesService.saveFileToStorage(file);
+    }
+
+    return this.filmModel.findByIdAndUpdate(id, {
+      ...updateFilmData,
+      pictureId,
+    });
   }
 
   async remove(id: string) {
     const film = await this.filmModel.findById(id);
-    this.filesService.deleteFile(film.pictureId);
+    this.filesService.deleteFileFromStorage(film.pictureId);
     return this.filmModel.findByIdAndDelete(id);
   }
 }

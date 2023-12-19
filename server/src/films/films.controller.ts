@@ -38,8 +38,13 @@ export class FilmsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateFilmDto: UpdateFilmDto) {
-    return this.filmsService.update(id, updateFilmDto);
+  @UseInterceptors(FileInterceptor('file'))
+  update(
+    @Param('id') id: string,
+    @Body() updateFilmDto: UpdateFilmDto,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return this.filmsService.update(id, updateFilmDto, file);
   }
 
   @Delete(':id')

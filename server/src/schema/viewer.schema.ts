@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import mongoose, { Document } from 'mongoose';
+import { Image } from './image.schema';
 
 export type ViewerDocument = Viewer & Document;
 
@@ -13,6 +14,9 @@ export class Viewer {
 
   @Prop()
   gender: string;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Image' })
+  image: Image;
 }
 
 export const ViewerSchema = SchemaFactory.createForClass(Viewer);

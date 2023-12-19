@@ -6,18 +6,25 @@ import {
   Patch,
   Param,
   Delete,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { ViewersService } from './viewers.service';
 import { CreateViewerDto } from './dto/create-viewer.dto';
 import { UpdateViewerDto } from './dto/update-viewer.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('viewers')
 export class ViewersController {
   constructor(private readonly viewersService: ViewersService) {}
 
   @Post()
-  create(@Body() createViewerDto: CreateViewerDto) {
-    return this.viewersService.create(createViewerDto);
+  @UseInterceptors(FileInterceptor('file'))
+  create(
+    @Body() createViewerDto: CreateViewerDto,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return this.viewersService.create(createViewerDto, file);
   }
 
   @Get()
@@ -31,8 +38,13 @@ export class ViewersController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateViewerDto: UpdateViewerDto) {
-    return this.viewersService.update(id, updateViewerDto);
+  @UseInterceptors(FileInterceptor('file'))
+  update(
+    @Param('id') id: string,
+    @Body() updateViewerDto: UpdateViewerDto,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return this.viewersService.update(id, updateViewerDto, file);
   }
 
   @Delete(':id')

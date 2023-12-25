@@ -1,6 +1,21 @@
 version: '3.8'
 
 services:
+  app:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: app
+    ports:
+     - 3000:3000
+    volumes:
+      - ./file_storage:/usr/src/app/static
+    depends_on:
+      - postgres
+      - mongodb
+    networks:
+      - backend
+
   postgres:
     image: postgres:latest
     container_name: postgres_db

@@ -9,7 +9,7 @@ services:
     ports:
      - 3000:3000
     volumes:
-      - ./file_storage:/usr/src/app/static
+      - ./file_storage:/static
     depends_on:
       - postgres
       - mongodb

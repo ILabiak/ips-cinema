@@ -17,8 +17,8 @@ import { FilesModule } from './files/files.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5433,
+      host: 'postgres',
+      port: 5432,
       password: 'qwerty334455',
       username: 'postgres',
       entities: [Order],
@@ -26,7 +26,7 @@ import { FilesModule } from './files/files.module';
       synchronize: true,
       logging: true,
     }),
-    MongooseModule.forRoot('mongodb://localhost:27017/', { dbName: 'cinema' }),
+    MongooseModule.forRoot('mongodb://mongodb:27017/', { dbName: 'cinema' }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'static'),
     }),

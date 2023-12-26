@@ -163,7 +163,7 @@ export default function FilmItem (props: FilmItemProps) {
             )}
             
           </div>
-          {isEditing && (
+          {isEditing && formData.pictureId && (
             <div className="row">
               <button className="item-delete-img" type="button" onClick={handleDeleteImage}>Видалити зображення</button>
             </div>

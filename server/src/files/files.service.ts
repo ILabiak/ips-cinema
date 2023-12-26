@@ -5,6 +5,7 @@ import * as uuid from 'uuid';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Image, ImageDocument } from '../schema/image.schema';
+import Jimp from 'jimp';
 
 @Injectable()
 export class FilesService {
@@ -18,15 +19,23 @@ export class FilesService {
   async saveFileToStorage(file: Express.Multer.File) {
     this.checkFileMimetype(file.mimetype);
 
-    const fileName = uuid.v4() + '.webp';
-    const filePath = path.resolve('static', fileName);
+    const fileId = uuid.v4();
+    const filePath = path.resolve('static', `${fileId}.webp`);
 
     try {
+      this.compressAndStore(file.buffer, fileId);
       await writeFile(filePath, file.buffer);
-      return fileName;
+      return fileId;
     } catch (error) {
       console.error(error);
     }
+  }
+
+  compressAndStore(buffer: Buffer, fileId: string) {
+    Jimp.read(buffer).then((image) => {
+      const filePath = path.resolve('static', `${fileId}_small.webp`);
+      image.quality(60).write(filePath);
+    });
   }
 
   async deleteFileFromStorage(fileName: string) {

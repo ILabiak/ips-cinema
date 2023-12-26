@@ -29,6 +29,16 @@ export default function FilmsPage() {
     setFilms(prevFilms => [film, ...prevFilms]);
   };
 
+  const updateFilm = (id: string, data: Partial<Film> ) => {
+    fetch(`${url}/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify(data),
+    });
+  }
+
   const deleteFilm = (id: string): void => {
     fetch(`${url}/${id}`, {
       method: 'DELETE',
@@ -39,7 +49,7 @@ export default function FilmsPage() {
   return (
     <>
       <AddFilmForm addFilm={addFilm} />
-      <FilmList films={films} deleteFilm={deleteFilm}/>
+      <FilmList films={films} deleteFilm={deleteFilm} updateFilm={updateFilm}/>
     </>
   );
 };

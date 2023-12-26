@@ -29,6 +29,16 @@ export default function SellersPage() {
     setSellers(prevSellers => [seller, ...prevSellers]);
   };
 
+  const updateSeller = (id: string, data: Partial<Seller> ) => {
+    fetch(`${url}/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify(data),
+    });
+  }
+
   const deleteSeller = (id: string): void => {
     fetch(`${url}/${id}`, {
       method: 'DELETE',
@@ -39,7 +49,7 @@ export default function SellersPage() {
   return (
     <>
       <AddSellerForm addSeller={addSeller} />
-      <SellerList sellers={sellers} deleteSeller={deleteSeller}/>
+      <SellerList sellers={sellers} deleteSeller={deleteSeller} updateSeller={updateSeller}/>
     </>
   );
 };

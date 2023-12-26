@@ -38,7 +38,6 @@ export default function AddSellerForm(props: AddSellerFormProps) {
           className="add-input" 
           type="text" 
           placeholder="Введіть ім'я та прізвище продавці"
-          id="full_name"
           name="full_name"
           value={formData.full_name}
           onChange={handleChange}
@@ -46,9 +45,8 @@ export default function AddSellerForm(props: AddSellerFormProps) {
         />
         <input 
           className="add-input" 
-          type="text" 
+          type="number" 
           placeholder="Введіть вік продавця"
-          id="age"
           name="age"
           value={formData.age ? formData.age : ''}
           onChange={handleChange}
@@ -60,7 +58,6 @@ export default function AddSellerForm(props: AddSellerFormProps) {
           className="add-input" 
           type="text" 
           placeholder="Введіть стать продавця"
-          id="gender"
           name="gender"
           value={formData.gender}
           onChange={handleChange}

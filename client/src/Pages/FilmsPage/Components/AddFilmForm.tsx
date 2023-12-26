@@ -40,7 +40,6 @@ export default function AddFilmForm(props: AddFilmFormProps) {
           className="add-input" 
           type="text" 
           placeholder="Введіть назву фільма"
-          id="title"
           name="title"
           value={formData.title}
           onChange={handleChange}
@@ -50,7 +49,6 @@ export default function AddFilmForm(props: AddFilmFormProps) {
           className="add-input" 
           type="text" 
           placeholder="Введіть жанр фільма"
-          id="genre"
           name="genre"
           value={formData.genre}
           onChange={handleChange}
@@ -62,7 +60,6 @@ export default function AddFilmForm(props: AddFilmFormProps) {
           className="add-input" 
           type="text" 
           placeholder="Введіть продюсера фільма"
-          id="director"
           name="director"
           value={formData.director}
           onChange={handleChange}

@@ -13,7 +13,7 @@ export class SellersService {
   ) {}
 
   create(createSellerDto: CreateSellerDto) {
-    const seller = new this.sellerModel(CreateSellerDto);
+    const seller = new this.sellerModel(createSellerDto);
     return seller.save();
   }
 

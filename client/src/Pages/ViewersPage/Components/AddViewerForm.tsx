@@ -64,7 +64,7 @@ export default function AddViewerForm(props: AddViewerFormProps) {
           required
         />
       </div>
-      <button type="submit" className="add-button">Додати продавця</button>
+      <button type="submit" className="add-button">Додати глядача</button>
     </form>
   );
 };

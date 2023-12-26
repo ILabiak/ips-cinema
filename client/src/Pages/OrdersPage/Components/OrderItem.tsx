@@ -115,7 +115,7 @@ export default function OrderItem (props: OrderItemProps) {
           </select>
       </div>
       { isEditing && <div className="row">
-          <button type="submit">Оновити дані квитка</button>
+          <button type="submit">Оновити дані замовлення</button>
           <button type="reset">Скасувати редагування</button>
         </div> 
       }

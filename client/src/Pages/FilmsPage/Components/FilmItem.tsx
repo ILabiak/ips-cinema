@@ -125,7 +125,7 @@ export default function FilmItem (props: FilmItemProps) {
         />
       </div>
       { isEditing && <div className="row">
-          <button type="submit">Оновити дані продавця</button>
+          <button type="submit">Оновити дані фільма</button>
           <button type="reset">Скасувати редагування</button>
         </div> 
       }

@@ -24,7 +24,7 @@ export default function OrderList(props: OrderListProps) {
             films={films}
           />
         )) :
-        <div className="list-empty">Квитків нема!</div>
+        <div className="list-empty">Замовлень нема!</div>
       }
     </ul>
   );

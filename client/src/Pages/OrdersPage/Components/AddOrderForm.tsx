@@ -74,7 +74,7 @@ export default function AddOrderForm(props: AddOrderFormProps) {
           </option>)}
         </select>
       </div>
-      <button type="submit" className="add-button">Додати квиток</button>
+      <button type="submit" className="add-button">Додати замовлення</button>
     </form>
   );
 };

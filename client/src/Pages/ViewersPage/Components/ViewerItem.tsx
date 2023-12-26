@@ -98,7 +98,7 @@ export default function ViewerItem (props: ViewerItemProps) {
         />
       </div>
       { isEditing && <div className="row">
-          <button type="submit">Оновити дані продавця</button>
+          <button type="submit">Оновити дані глядача</button>
           <button type="reset">Скасувати редагування</button>
         </div> 
       }

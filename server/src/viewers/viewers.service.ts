@@ -41,7 +41,9 @@ export class ViewersService {
     const { imageId, ...updateViewerData } = updateViewerDto;
 
     if (file) {
-      const { image: oldImage } = await this.viewerModel.findById(id);
+      const { image: oldImage } = await this.viewerModel
+        .findById(id)
+        .populate('image');
 
       const image = await this.filesService.saveFileToDB(file);
       const updatedViewer = this.viewerModel.findByIdAndUpdate(id, {
@@ -54,7 +56,9 @@ export class ViewersService {
     }
 
     if (!imageId) {
-      const { image: oldImage } = await this.viewerModel.findById(id);
+      const { image: oldImage } = await this.viewerModel
+        .findById(id)
+        .populate('image');
 
       const updatedViewer = this.viewerModel.findByIdAndUpdate(id, {
         ...updateViewerData,
@@ -68,8 +72,10 @@ export class ViewersService {
   }
 
   async remove(id: string) {
-    const viewer = await this.viewerModel.findById(id);
-    this.filesService.deleteFileFromDB(viewer.image.id);
+    const viewer = await this.viewerModel.findById(id).populate('image');
+    console.log(viewer);
+    if (viewer && viewer.image && viewer.image.id)
+      this.filesService.deleteFileFromDB(viewer.image.id);
     return this.viewerModel.findByIdAndDelete(id);
   }
 }

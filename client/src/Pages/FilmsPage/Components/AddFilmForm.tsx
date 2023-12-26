@@ -3,7 +3,7 @@ import { useState, FormEvent, ChangeEvent } from "react";
 import Film from "../../../interfaces/film.interface";
 
 interface AddFilmFormProps {
-  addFilm(film: Film): void
+  addFilm(film: Film, file: File | null): void
 }
 
 export default function AddFilmForm(props: AddFilmFormProps) {
@@ -16,22 +16,27 @@ export default function AddFilmForm(props: AddFilmFormProps) {
     description: '',
   };
   const [formData, setFormData] = useState<Film>(defaultFormData);
+  const [file, setFile] = useState<File | null>(null);
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const f = e.target.files![0];
+    if (f) setFile(f);
+  };
+
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    addFilm(formData);
+    addFilm(formData, file);
     setFormData(defaultFormData);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
     }));
   };
-
 
   return (
     <form className="add-form" onSubmit={handleSubmit}>
@@ -87,6 +92,14 @@ export default function AddFilmForm(props: AddFilmFormProps) {
           onChange={handleChange}
           required
         />
+      <div className="add-field">
+       <input 
+          className="add-input" 
+          type="file" 
+          name="file"
+          onChange={handleFileChange}
+        />
+      </div>
       <button type="submit" className="add-button">Додати фільм</button>
     </form>
   );

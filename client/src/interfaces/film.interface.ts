@@ -5,4 +5,5 @@ export default interface Film {
   director: string;
   year: number;
   description: string;
+  pictureId?: string;
 };

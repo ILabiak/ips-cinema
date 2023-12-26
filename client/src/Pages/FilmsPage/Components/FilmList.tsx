@@ -4,7 +4,7 @@ import Film from "../../../interfaces/film.interface";
 interface FilmListProps {
   films: Film[],
   deleteFilm(id: string): void,
-  updateFilm(id: string, data: Partial<Film>): void,
+  updateFilm(id: string, data: Partial<Film>, file: File | null): void,
 }
 
 export default function FilmList(props: FilmListProps) {

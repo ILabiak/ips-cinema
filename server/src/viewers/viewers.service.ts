@@ -38,16 +38,33 @@ export class ViewersService {
     updateViewerDto: UpdateViewerDto,
     file: Express.Multer.File,
   ) {
+    const { imageId, ...updateViewerData } = updateViewerDto;
+
     if (file) {
-      const viewer = await this.viewerModel.findById(id).populate('image');
-      this.filesService.deleteFileFromDB(viewer.image.id);
+      const { image: oldImage } = await this.viewerModel.findById(id);
+
       const image = await this.filesService.saveFileToDB(file);
-      return this.viewerModel.findByIdAndUpdate(id, {
-        ...updateViewerDto,
+      const updatedViewer = this.viewerModel.findByIdAndUpdate(id, {
+        ...updateViewerData,
         image,
       });
+      if (oldImage && oldImage.id)
+        this.filesService.deleteFileFromDB(oldImage.id);
+      return updatedViewer;
     }
-    return this.viewerModel.findByIdAndUpdate(id, updateViewerDto);
+
+    if (!imageId) {
+      const { image: oldImage } = await this.viewerModel.findById(id);
+
+      const updatedViewer = this.viewerModel.findByIdAndUpdate(id, {
+        ...updateViewerData,
+      });
+      if (oldImage && oldImage.id)
+        this.filesService.deleteFileFromDB(oldImage.id);
+      return updatedViewer;
+    }
+
+    return this.viewerModel.findByIdAndUpdate(id, updateViewerData);
   }
 
   async remove(id: string) {

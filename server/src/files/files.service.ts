@@ -39,8 +39,14 @@ export class FilesService {
   }
 
   async deleteFileFromStorage(fileName: string) {
-    const filePath = path.resolve('static', fileName);
-    unlink(filePath);
+    const filePath = path.resolve('static', `${fileName}.webp`);
+    const compressedFilePath = path.resolve('static', `${fileName}_small.webp`);
+    try {
+      unlink(filePath);
+      unlink(compressedFilePath);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   saveFileToDB(file: Express.Multer.File) {

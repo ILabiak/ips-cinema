@@ -39,18 +39,19 @@ export class FilmsService {
     // eslint-disable-next-line prefer-const
     let { pictureId, ...updateFilmData } = updateFilmDto;
 
-    if (!pictureId) {
-      const film = await this.filmModel.findById(id);
-      film.id;
-      pictureId = film.pictureId;
-    }
-
     if (file) {
-      this.filesService.deleteFileFromStorage(pictureId);
+      const { pictureId: fileId } = await this.filmModel.findById(id);
+      if (fileId) this.filesService.deleteFileFromStorage(fileId);
       pictureId = await this.filesService.saveFileToStorage(file);
     }
 
-    return this.filmModel.findByIdAndUpdate(id, {
+    if (!pictureId) {
+      const { pictureId: fileId } = await this.filmModel.findById(id);
+      if (fileId) this.filesService.deleteFileFromStorage(fileId);
+      pictureId = '';
+    }
+
+    return await this.filmModel.findByIdAndUpdate(id, {
       ...updateFilmData,
       pictureId,
     });

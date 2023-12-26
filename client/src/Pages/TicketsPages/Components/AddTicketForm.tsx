@@ -14,7 +14,7 @@ export default function AddTicketForm(props: AddTicketFormProps) {
     date: '',
     seat: 0,
     time: '',
-    film_id: films[0]?._id!,
+    film_id: '',
   };
   const [formData, setFormData] = useState<Ticket>(defaultFormData);
 
@@ -73,6 +73,7 @@ export default function AddTicketForm(props: AddTicketFormProps) {
           onChange={handleChange}
           required
         >
+          <option value="" disabled selected>Виберіть фільм</option>
           {films?.map(film => <option value={film._id}>{film.title}</option>)}
         </select>
       </div>

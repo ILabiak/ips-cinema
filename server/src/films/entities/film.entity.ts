@@ -4,4 +4,5 @@ export class Film {
   director: string;
   year: number;
   description: string;
+  pictureId: string;
 }

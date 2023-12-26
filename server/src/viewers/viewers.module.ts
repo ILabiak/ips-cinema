@@ -3,6 +3,7 @@ import { ViewersService } from './viewers.service';
 import { ViewersController } from './viewers.controller';
 import { Viewer, ViewerSchema } from '../schema/viewer.schema';
 import { MongooseModule } from '@nestjs/mongoose';
+import { FilesModule } from 'src/files/files.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { MongooseModule } from '@nestjs/mongoose';
         schema: ViewerSchema,
       },
     ]),
+    FilesModule,
   ],
   controllers: [ViewersController],
   providers: [ViewersService],

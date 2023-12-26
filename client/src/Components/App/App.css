@@ -30,17 +30,22 @@ ul, ol {
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.item input {
+.item input, .item select {
   width: 80%;
+  font: inherit;
 }
 
 .item textarea {
   width: 100%;
 }
 
-.item input:disabled, .item textarea:disabled {
+.item input:disabled, .item textarea:disabled, .item select:disabled {
   border: 0;
   color: black;
+}
+
+.item select:disabled {
+  background-color: inherit;
 }
 
 .add-form {

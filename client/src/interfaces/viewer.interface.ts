@@ -3,4 +3,10 @@ export default interface Viewer {
   full_name: string;
   age: number;
   gender: string;
+  image?: {
+    image: {
+      contentType: string,
+      data: string
+    }
+  } | null
 };

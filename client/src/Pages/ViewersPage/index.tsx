@@ -12,6 +12,7 @@ export default function ViewersPage() {
     const handleFetchViewers = async () => {
       const response: Response = await fetch(url);
       const data: Viewer[] = await response.json();
+      console.log(data)
       setViewers(data.reverse());
     }
 
@@ -29,14 +30,27 @@ export default function ViewersPage() {
     setViewers(prevViewers => [viewer, ...prevViewers]);
   };
 
-  const updateViewer = (id: string, data: Partial<Viewer> ) => {
+  const updateViewer = (id: string, data: Partial<Viewer>, file: File | null) => {
+    const fData = new FormData();
+    fData.append('file', file!);
+    type F = keyof Viewer;
+
+    for (const key of Object.keys(data) as F[]) {
+      if (key !== 'image') {
+        fData.append(key, String(data[key]));
+      }
+    }
+
     fetch(`${url}/${id}`, {
       method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify(data),
+      body: fData,
     });
+    
+    const updatedViewers = viewers.map(viewer => {
+      if (viewer._id === id) return {...viewer, ...data};
+      return viewer;
+    })
+    setViewers(updatedViewers);
   }
 
   const deleteViewer = (id: string): void => {

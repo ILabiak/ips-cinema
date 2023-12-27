@@ -156,19 +156,17 @@ export default function FilmItem (props: FilmItemProps) {
         </div>
         <div className="item-row">
           <div className="row">
-            {film.pictureId ? (
-              <img className="item-img" src={`${serverURL}/${film.pictureId}.webp`} alt={film.title} />
+            {formData.pictureId ? (
+              <img className="item-img" src={`${serverURL}/${formData.pictureId}.webp`} alt={film.title} />
             ): (
               <div className="item-empty-img"><p>Зображення нема</p></div>
-            )}
-            
+            )} 
           </div>
           {isEditing && formData.pictureId && (
             <div className="row">
               <button className="item-delete-img" type="button" onClick={handleDeleteImage}>Видалити зображення</button>
             </div>
           )}
-          
         </div>
       </div>
       { isEditing && <div className="row">

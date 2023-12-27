@@ -3,7 +3,7 @@ import { useState, FormEvent, ChangeEvent } from "react";
 import Viewer from "../../../interfaces/viewer.interface";
 
 interface AddViewerFormProps {
-  addViewer(viewer: Viewer): void
+  addViewer(viewer: Viewer, file: File | null): void
 }
 
 export default function AddViewerForm(props: AddViewerFormProps) {
@@ -14,10 +14,16 @@ export default function AddViewerForm(props: AddViewerFormProps) {
     gender: '',
   };
   const [formData, setFormData] = useState<Viewer>(defaultFormData);
+  const [file, setFile] = useState<File | null>(null);
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const f = e.target.files![0];
+    if (f) setFile(f);
+  };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    addViewer(formData);
+    addViewer(formData, file);
     setFormData(defaultFormData);
   };
 
@@ -62,6 +68,14 @@ export default function AddViewerForm(props: AddViewerFormProps) {
           value={formData.gender}
           onChange={handleChange}
           required
+        />
+      </div>
+      <div className="add-field">
+       <input 
+          className="add-input" 
+          type="file" 
+          name="file"
+          onChange={handleFileChange}
         />
       </div>
       <button type="submit" className="add-button">Додати глядача</button>

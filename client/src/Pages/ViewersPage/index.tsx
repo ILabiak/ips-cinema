@@ -19,13 +19,18 @@ export default function ViewersPage() {
     handleFetchViewers();
   }, [url]);
 
-  const addViewer = (viewer: Viewer): void => {
+  const addViewer = (viewer: Viewer, file: File | null): void => {
+    const fData = new FormData();
+    fData.append('file', file!);
+    type F = keyof Viewer;
+
+    for (const key of Object.keys(viewer) as F[]) {
+      fData.append(key, String(viewer[key]));
+    }
+
     fetch(url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify(viewer),
+      body: fData,
     });
     setViewers(prevViewers => [viewer, ...prevViewers]);
   };

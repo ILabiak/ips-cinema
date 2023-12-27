@@ -7,12 +7,24 @@ services:
       dockerfile: Dockerfile
     container_name: app
     ports:
-     - 3000:3000
+     - 3001:3001
     volumes:
       - ./file_storage:/static
     depends_on:
       - postgres
       - mongodb
+    networks:
+      - backend
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: client
+    ports:
+     - 3000:3000
+    depends_on:
+      - app
     networks:
       - backend
 

@@ -59,7 +59,6 @@ export default function FilmItem (props: FilmItemProps) {
   };
 
   const handleDeleteClick = () => {
-    console.log(film.pictureId)
     onDelete(film._id!);
   };
 

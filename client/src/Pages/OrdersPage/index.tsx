@@ -5,10 +5,14 @@ import OrderList from "./Components/OrdersList";
 import AddOrderForm from "./Components/AddOrderForm";
 import { getFilms } from "../../services/films";
 import Film from "../../interfaces/film.interface";
+import FilterForm from "./Components/FilterForm";
+import Filter from "../../interfaces/filter.interface";
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [films, setFilms] = useState<Film[]>([]);
+  const [filters, setFilters] = useState<Filter[]>([]);
+
   const url = `${serverURL}/orders`;
 
   useEffect(() => {
@@ -50,14 +54,32 @@ export default function OrdersPage() {
     setOrders(orders.filter(order => order.id !== id));
   }
 
+  const addFilter = (name: string, data: string) => {
+    setFilters(prevFilters => [{name, data}, ...prevFilters]);
+  }
+
+  const deleteFilter = (name: string) => {
+    setFilters(filters.filter(filt => filt.name !== name));
+  }
+
+  const hasFilter = (name: string): boolean => {
+    return filters.some((filter) => filter.name === name);
+  };
+
   return (
     <>
       <AddOrderForm addOrder={addOrder} films={films}/>
+      <FilterForm 
+        addFilter={addFilter} 
+        deleteFilter={deleteFilter} 
+        hasFilter={hasFilter}
+      />
       <OrderList 
         orders={orders} 
         deleteOrder={deleteOrder} 
         updateOrder={updateOrder}
         films={films}
+        filters={filters}
       />
     </>
   );

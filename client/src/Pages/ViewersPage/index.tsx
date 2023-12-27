@@ -12,7 +12,6 @@ export default function ViewersPage() {
     const handleFetchViewers = async () => {
       const response: Response = await fetch(url);
       const data: Viewer[] = await response.json();
-      console.log(data)
       setViewers(data.reverse());
     }
 

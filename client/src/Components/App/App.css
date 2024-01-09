@@ -13,6 +13,10 @@ ul, ol {
   padding: 3px;
 }
 
+.justify-center {
+  justify-content: center;
+}
+
 .list {
   margin: 20px auto;
   padding: 20px;
@@ -35,6 +39,14 @@ ul, ol {
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.item-container {
+  display: flex;
+}
+
+.item-row {
+  flex: 1;
+}
+
 .item input, .item select {
   width: 80%;
   font: inherit;
@@ -53,6 +65,26 @@ ul, ol {
   background-color: inherit;
 }
 
+.item-img, .item-empty-img {
+  width: 50%;
+  border-radius: 5px;
+}
+
+.item-empty-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 13em;
+  background-color: gray;
+}
+
+.item-delete-img {
+  background-color: red;
+  padding: 2px;
+  width: 50%;
+  border-radius: 5px;
+  text-align: center;
+}
 .add-form {
   padding: 50px;
 }

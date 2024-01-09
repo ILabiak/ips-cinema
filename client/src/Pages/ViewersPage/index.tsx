@@ -18,25 +18,43 @@ export default function ViewersPage() {
     handleFetchViewers();
   }, [url]);
 
-  const addViewer = (viewer: Viewer): void => {
+  const addViewer = (viewer: Viewer, file: File | null): void => {
+    const fData = new FormData();
+    fData.append('file', file!);
+    type F = keyof Viewer;
+
+    for (const key of Object.keys(viewer) as F[]) {
+      fData.append(key, String(viewer[key]));
+    }
+
     fetch(url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify(viewer),
+      body: fData,
     });
     setViewers(prevViewers => [viewer, ...prevViewers]);
   };
 
-  const updateViewer = (id: string, data: Partial<Viewer> ) => {
+  const updateViewer = (id: string, data: Partial<Viewer>, file: File | null) => {
+    const fData = new FormData();
+    fData.append('file', file!);
+    type F = keyof Viewer;
+
+    for (const key of Object.keys(data) as F[]) {
+      if (key !== 'image') {
+        fData.append(key, String(data[key]));
+      }
+    }
+
     fetch(`${url}/${id}`, {
       method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify(data),
+      body: fData,
     });
+    
+    const updatedViewers = viewers.map(viewer => {
+      if (viewer._id === id) return {...viewer, ...data};
+      return viewer;
+    })
+    setViewers(updatedViewers);
   }
 
   const deleteViewer = (id: string): void => {

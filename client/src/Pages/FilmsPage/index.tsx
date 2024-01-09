@@ -18,25 +18,40 @@ export default function FilmsPage() {
     handleFetchFilms();
   }, [url]);
 
-  const addFilm = (film: Film): void => {
+  const addFilm = (film: Film, file: File | null): void => {
+    const fData = new FormData();
+    fData.append('file', file!);
+    type F = keyof Film;
+
+    for (const key of Object.keys(film) as F[]) {
+      fData.append(key, String(film[key]));
+    }
+
     fetch(url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify(film),
+      body: fData,
     });
     setFilms(prevFilms => [film, ...prevFilms]);
   };
 
-  const updateFilm = (id: string, data: Partial<Film> ) => {
+  const updateFilm = (id: string, data: Partial<Film>, file: File | null) => {
+    const fData = new FormData();
+    fData.append('file', file!);
+    type F = keyof Film;
+
+    for (const key of Object.keys(data) as F[]) {
+      fData.append(key, String(data[key]));
+    }
+
     fetch(`${url}/${id}`, {
       method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify(data),
+      body: fData,
     });
+    const updatedFilms = films.map(film => {
+      if (film._id === id) return {...film, ...data};
+      return film;
+    })
+    setFilms(updatedFilms);
   }
 
   const deleteFilm = (id: string): void => {
